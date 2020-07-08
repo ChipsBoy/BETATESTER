@@ -1,68 +1,79 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/ChipsBoy/DoggoHub/master/uilibrary.lua", true))()
+--[[ 
+    🌑 Doggo Hub Winning
+]]
 
---// MAIN LOCALS \\--
-
-local Tweens = game:GetService("TweenService")
-local Player = game:GetService("Players")
-local LP = Player.LocalPlayer
-local VIM = game:GetService("VirtualInputManager")
-local Heartbeat = game:GetService("RunService").Heartbeat
-local uis = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local Client = workspace.Client
-local currentCamera = workspace.CurrentCamera
-
---// FUNCTIONS \\--
-
-local function getClosestSquare()
-    local closestSquare = nil
-    local shortestDistance = math.huge
-
-    for i,v in pairs(workspace:GetDescendants()) do
-        if v.Name:find("%.") and v.ClassName ~= "SelectionBox" then
-            local magnitude = (v.Position - Client.CameraPos.Position).magnitude
-
-            if magnitude < shortestDistance then
-                closestSquare = v
-                shortestDistance = magnitude
-            end
-        end
-    end
-
-    return closestSquare
-end
-
---// SCRIPT \\--
-
-local DoggoHub = library:AddTab("Doggo Hub")
-
-local MainCheats = DoggoHub:AddCategory("Main Cheats")
-
-local aimbot = false
-MainCheats:AddToggle("Aimbot", false, function()
-    aimbot = not aimbot
-end)
-
-local smoothaimbot = false
-MainCheats:AddToggle("Smooth Aimbot", false, function()
-    smoothaimbot = not smoothaimbot
-end)
-
-local legitaimbot = false
-MainCheats:AddToggle("Legit Aimbot", false, function()
-    legitaimbot = not legitaimbot
-end)
-
-RunService.RenderStepped:Connect(function()
-    for error, fixsquare in pairs(workspace:GetDescendants()) do
-        if fixsquare.Name:find("%.") and fixsquare.ClassName ~= "SelectionBox" then
-            if smoothaimbot then
-                Tweens:Create(currentCamera, TweenInfo.new(0.1), {CFrame = CFrame.new(Client.CameraPos.Position, getClosestSquare().Position)}):Play()
-            elseif legitaimbot and smoothaimbot ~= true then
-                Tweens:Create(currentCamera, TweenInfo.new(0.3), {CFrame = CFrame.new(Client.CameraPos.Position, getClosestSquare().Position)}):Play()
-            elseif aimbot == true and smoothaimbot ~= true and legitaimbot ~= true then
-                currentCamera.CFrame = CFrame.new(Client.CameraPos.Position, getClosestSquare().Position)
-            end
-        end
-    end
-end)
+local B,x,i,a,D,M,c,s,h,C,x,f=getfenv or function()return _ENV end,math.huge,string.byte,table.concat,string.sub,setmetatable,string.char,select,math.ldexp,unpack
+or table.unpack,table.insert,tonumber;local A={};local n=1;for x=0,255 do A[x]=c(x)end;local function d(o)local e,l,C="","",{};local t=256;local x=n;local function i()local e=f(D(o,x,x),36);x=x+n;local l=f(D(o,x,x+e-n),36);x=e+x;return l;end;e=c(i());C[1]=e;while
+x
+<#o do local x=i();if A[x]then l=A[x]else l=e..D(e,n,n);end;A[t]=e..D(l,n,n);C[#C+n],e,t=l,l,t+n;end;return table.concat(C)end;local f=d(
+    '22W22327522121T27522321321021621B21K21R21L1Y21121822122727921821621221A2212242791321R21R21N1C21A21R2211327925Q26J2262481Y26X25Y23R21I26H25X1E24D1022P26L24N21T21D23I26423625221225I24725J25026M21S22221Q21K22721R25322W24O21I24S21V23T21M22N25922223H1R21P21D23U23K26A181P24E1O22E2632242581621F25C22G26D23925323Z26L25921B27727927Z21R1O21A21L21P1Y21427R21Z2791V21O21A21A2112A92AB2AD27R27T2751R21321621E2AA21K22121S279172102142162132AT2AV2AA22122G2791T1Y21L21R21Q2B51221121N21Q21R162162112162182B92782751P21Q2AM2AA2AC2AE22121U27U21A2162BF2152C528122J2791U21K2AA2BJ2BL2A82BZ2AP2C227921O21021L1W21K21N2162C1225279182131Y2AL28121Y2CW21Q21L21L2D01827P2AA2162212CV2751A21B21B1V2162152CL2751F21021821821022Z1321Q2DK2B02DE2DG2D821R21A2DQ21L21E2AZ2792BO27I22Z181Z2C92AY2C32DX2DH2DO21821327R2DD2231A1Y2122152102D12791O2122102ER1Z22Z2EN2EP2ER2212AG275172E11Y21R2EZ2EO2EQ2ES2BV2AL21B2AA1O2E021N21N21A2A42AR2231821021121121A2142812792232DC27927F27H27J2212202G02DU27L2792141Z2C62222FX2FX2GD2FX24R2101B2GG2FX2572382211127924M24F21M26G22925F26X24O21W23S24I1W26Y22X1L23P25U1Z21W1D2551025X22124O26B24I26224A23221522922D22O23G2671126021X26M21826O1L1R25U2191Q23823921W26G24V23Z22X22Y26I23H21026S21L25X22Y22I24I21623O1725Q24H23L25K2261I1X2GL27525N1P2GK2GE2751B2232262792D227627M27521221621R1Z2G82751Z21Q2BS2212J32752CS2BE2ED2CM2CO2CQ2CS2C121X2A62801F21A21K2AE21121B2BP21R2AY2J7223152D92JD22321927I2A422127923222T2DL2FP2AU21K21K2K727Q2F32ET21A2EJ2FV1Y2FR1921021F22121V2791R21021K2F82KU2112KI2D827Q21L2162L22JN2J82BR2112F821Q2FG2GE22Y27922H1X2232GD2GL22Z2752LR2FY22322H2762232G52752LY2M02232K52LT2M42G52JJ2752G52K52792KE27527M2MD22E2LQ22322Z2MJ27T2CV2CV22Z27T2MS22327T22H2142232C32L02B12MU2MY2LW2252C327T21W2MK2GD2272362792N82NA2NC2752MJ2GD2MM2N22CV2C32311D2N22NI2232782NB2792NR2NK2MO2232DW2372232N02792M72L02L02AG2O52O22NZ2FX2MT2L02M72MT2D22DD27T2282N92M52NG2232OK2NF2NV2MK2232N82752EL2OT2MK2FO2252832KE2L02GD2KE2NU2752P32751Y2ME2FX21N2792IU2IZ2MG2FX22S2PG2LX2PK182PK2PD2LU2PK2FX2MD2PJ2PG2M32IZ2PN2PG2PP2OS2PR2M52PI2PK2PW2GE2PY2IZ2Q02GL2PW2JI2792JL21L2LE2232CN2CP2CR2CT27R2JT2752A72JW2JY2FF2K22K42792KN27R2K52KB2K02212MF2232KG2L82KK2KM2K82F42232A92KS21R2L62KW2KY2EL182D62JA27R2EE2232AI2AK2112BJ2192102G42792FT21O22225T25U2S12S126Q2GO2RI1D2LB2KO2RN2L92DA2LD2KZ2L12L32L52FR2K92B721E2LQ22223C2SO2SP2482382GE1K2LN2742PQ2M22PQ2R32M72LV2M12SZ2Q22P52FX1N2MK2NK2J32MH2ML27T2J32TF2LX2MX2NY2N12J327T2KE2N52J22232D22LV2P62TQ2MK2TT2T82NJ2MJ2TB2N22NO2TP2TX2OA2TW2OS2PJ2MA2OV22M2TP22Q2Q12TT2UD2GG2U82Q122Z1J2TP2J32RN2N22R32M32L02BU2ML2P72OA2B02M32C32RA2792L02KE2R32N32PQ2M32782J52UU2NS2VB2DW2752B02T32M72B02B02JT2VH2OB2OU2752AG2MD2VO2MK2KE2M72AG2AG2VN2VB2AG2KE2CB2N32D22UT2TP2C32VT2752TG2W12W82LW2NA2T72U72UM2792TO2J322U2OL2TT2WK2OQ2752NP2UH2TP2FX2U22J32WQ22322I2OM2792WW2232UI2LS2UL2TG2UO2TM2LN2UV2UT2O92L02UX2752C32Q62UV2V32FX2RN2GD2V72TU2752M72782782VD2OB2VG2VE2OB2VK2XW2B02VX2VP2IZ2AG2P42VA2VV2OX2792782VZ2232W12C32W32FX2UN2LW2M72W92YG2WC2Q32792U42X22TP2EL2WU2232GQ2GD2WY2TT2YV2WZ2752YP2UI2WT23J2TP152MK2YX2ON2Z72WO2232Z22WG2752YT2U42Z92YO2WF2J32UQ23H2232CV2V92M72MP2OB27927T2XV2N227T2XY2ZY2Y82UV2VQ2OA2Y52XC31022ZP2OA2W02WB2OH2ZP2832OV2VS2Z031092GG2QA2792682LN2292PE2X9310H2XP2PQ2GD2G52M32TC2GE2CV2K52MF2ZT310Z310931142CV2XM2UV310P2SY2N32OK2XP2MJ2C32C322F2LX21A2VB311D2VA2XR2232MJ2792XT2PL2232AG22D310R2D222C310R31002YN2AG22B2OS2N82CB2W42N82WY2VX2112YC2LW2MF2162VM312D223312G2B02CB2N82272GQ2AG2LY2XM2MX2AG2LM2M22MX2D22M72751O2232JT2EL2MW2OX312Z2272J12D22U422Z22O2WX312D2LT22Z212313E2WY22X2VA2WY2WY312Z2PL2O32792BB2FO27922N2V52FX2UB2OW27522L312I2FX22K3143313V22331452V4313W2B0313W2OX2UB2UO23I22331422V027531452WY2GE3124314N313Y22331242V42UB2B02UB2793145314D2FX3124314X2LW314831552GE3145314531573155312S22322A2VA2TH223310P311W27521X1T223311W2WW31452TT2WW315L315N2232WW3124315R2T92L02OK314527422Z2L0311I31242742252JT2OK2392MK311I2TT316C2GG2WY310P310P315E2232UD2MJ31452OK22Z31452MJ2MJ2SW275311W3124311I2M7311W311W3163275315E315E316V314S315U315A311Q2YN275314H2GD2251F3155122MK315X2ON317J2GG2N831453124315K315M311W1U2MK315Q2ON317V2NJ3160315527421X317J311W142MK2OK2TT31872ZC1R2OS316I315H315D2752UD311I316P2ML234223311I311I3163317V31752232SW317P318O2792TT317N2752N82BB311A3191223313W311M2R431322GE2TT1I2OS1Q2232BB2B02BB311U2OA2LY2BB312O2TU2NR2OX2G5313R312N313X31992VQ2TT2172OS2B027M2IU319D2WD2PR2V42T42M32Y5310T2OL2J32M32G531402MK2G52KE2M32XJ31AB2XJ31AD2PH313U172LW27M2VT162M42P2311T31AT2O42PH27M31AO31092UO2PH2CV31AJ2WB2T02WB2TG2M327T2W42WB2X82YJ2TP2UX23G31092T021531092CV31B32O72IZ2CV2V2311T2X831AB2MT31B32C331BF2N22W6311T2L02ZR2UV2L02JT2UY2XO2ML311F2N32N82251V2VB310U2IZ2O322Z1M2ZU312D2M32D2314Q311R2TU2W7319K2XE2M32JT319J2FX2AG2JT2V42V931AB2JT2AG313W2M32CB315327931CT2ZP31CI312R2OL2GE31D6318731CA2Q1319A2FX2M72N831D9311T2WY31422GE2XH31CH319G2YM2PF31DP2753187319231DO2VX2VA2CB31DT2M32LY31592FX31D12OV31CI313W2G52LV2GE2VX2OK2CB313W2TY312D27T31242MR312D2CB315E31DZ2LY31A22N22GE2QO2IZ31E22XF2PK313R2FX31C231952PG31D631EO2PL310K310Q275');local A=(bit and bit32)and(bit or bit32).bxor or function(x,l)local n,e=0,n;while x>0 and l>0 do local D,A=x%2,l%2 if D~=A then n=n+e;end;x,l,e=(x-D)/2,(l-A)/2,e*2;end if x
+    <l then x=l;end;while x>0 do local l=x%2;if l>0 then n=n+e;end;x,e=(x-l)/2,e*2;end;return n;end;local x=n;local function e()local n,l,e,D=i(f,x,x+3);n=A(n,75)l=A(l,75)e=A(e,75)D=A(D,75)x=x+4;return(D*16777216)+(e*65536)+(l*256)+n;end;local function l(l,x,e)if e then local
+        x=(l/2^(x-n))%2^((e-n)-(x-n)+n);return x-x%n;else local x=2^(x-n);return(l%(x+x)>=x)and n or 0;end;end;local function T()local x=e();local e=e();local D=n;local A=(l(e,n,20)*(2^32))+x;local x=l(e,21,31);local e=((-n)^l(e,32));if(x==0)then if(A==0)then
+        return e*0;else x=n;D=0;end;elseif(x==2047)then return(A==0)and(e*(n/0))or(e*(0/0));end;return h(e,x-1023)*(D+(A/(2^52)));end;local function t()local e=A(i(f,x,x),75);x=x+n;return e;end;local function o()local e,l=i(f,x,x+2);e=A(e,75)l=A(l,75)x=x+2;return(l*256)+e;end;local
+        h=e;local function d(e)local l;if(not e)then e=h();if(e==0)then return'';end;end;l=D(f,x,x+e-n);x=x+e;local e={}for x=n,#l do e[x]=c(A(i(D(l,x,x)),75))end return a(e);end;local x=e;local function i(...)return{...},s('#',...)end;local function
+        h()local C={};local D={};local x={};local f={[10]=C,[2]=D,[12]=nil,x};local x=e()local A={}for l=1,x do local e=t();local x;if(e==0)then x=(t()~=0);elseif(e==1)then x=T();elseif(e==2)then x=d();end;A[l]=x;end;f[12]=t();for x=1,e()do D[x-1]=h();end;for
+        f=n,e()do local D=t();if(l(D,n,n)==0)then local x={[876]=nil;[146]=o();[730]=o();[1314]=nil;};local n=l(D,2,3);local D=l(D,4,6);if(n==0)then x[876]=o();x[1314]=o();elseif(n==1)then x[876]=e();elseif(n==2)then x[876]=e()-(2^16)elseif(n==3)then
+        x[876]=e()-(2^16)x[1314]=o();end;if(l(D,1,1)==1)then x[730]=A[x[730]]end if(l(D,2,2)==1)then x[876]=A[x[876]]end if(l(D,3,3)==1)then x[1314]=A[x[1314]]end C[f]=x;end end;return f;end;local function d(x,f,o)local e=x[10];local l=x[2];local x=x[12];return
+        function(...)local A=e;local h=l;local D=x;local c={};local l={};local e=n;local i=i local t=-n;local a={...};local T={};local s=s('#',...)-n;for x=0,s do if(x>=D)then T[x-D]=a[x+n];else l[x]=a[x+n];end;end;local x=s-D+n local x;local D;while
+        146 do x=A[e];D=x[146];if D
+        <=(55)then if D<=(27)then if D<=(13)then if D<=(6)then if D<=(2)then if D<=(0)then l[x[730]]=l[x[876]];elseif D==(1)then local e=x[730];local n,x=i(l[e](C(l,e+1,x[876])));t=e+x-1;local x=0;for e=e,t do x=x+1;l[e]=n[x];end;else
+            local t=h[x[876]];local C;local n={};C=M({},{__index=function(e,x)local x=n[x];return x[1][x[2]];end,__newindex=function(l,x,e)local x=n[x]x[1][x[2]]=e;end;});for D=1,x[1314]do e=e+1;local x=A[e];if x[146]==0 then n[D-1]={l,x[876]};else n[D-1]={f,x[876]};end;c[#c+1]=n;end;l[x[730]]=d(t,C,o);end;elseif
+            D<=(4)then if D>(3)then local e=x[730];l[e]=x[(876)];else local o;local D;D=x[730]l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]]=(x[876]~=0);e=e+n;x=A[e];D=x[730];o=l[x[876]];l[D+1]=o;l[D]=o[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];l[x[730]]=(x[876]~=0);end;elseif
+            D>(5)then l[x[730]]=l[x[1314]]+l[x[876]];else local n=x[730]local A={l[n](C(l,n+1,t))};local e=0;for x=n,x[1314]do e=e+1;l[x]=A[e];end end;elseif D
+            <=(9)then if D<=(7)then local e=x[730];local n=l[x[876]];l[e+1]=n;l[e]=n[x[1314]];elseif D==(8)then
+                l[x[730]]=l[x[876]]%x[1314];else if not l[x[730]]then e=e+1;else e=x[876];end;end;elseif D<=(11)then if D>(10)then l[x[730]]=(x[876]~=0);else local e=x[730];local n,x=i(l[e](C(l,e+1,x[876])));t=e+x-1;local x=0;for e=e,t do x=x+1;l[e]=n[x];end;end;elseif D==(12)then local n=x[876];local e=l[n]for x=n+1,x[1314]do e=e..l[x];end;l[x[730]]=e;else l[x[730]]=l[x[876]]*x[1314];end;elseif
+                D
+                <=(20)then if D<=(16)then if D<=(14)then if(l[x[730]]~=l[x[1314]])then e=e+1;else e=x[876];end;elseif D>(15)then l[x[730]]=l[x[876]][l[x[1314]]];else l[x[730]]=l[x[876]];end;elseif D
+                    <=(18)then if D==(17)then l[x[730]]=l[x[1314]]+l[x[876]];else l[x[730]]=(not l[x[876]]);end;elseif D==(19)then local e=x[730];l[e]=o[x[876]];else l[x[730]]=x[1314]+l[x[876]];end;elseif
+                        D<=(23)then if D<=(21)then if l[x[730]]then e=e+1;else e=x[876];end;elseif D==(22)then l[x[730]]=l[x[876]]-l[x[1314]];else l[x[730]]=l[x[876]]/x[1314];e=e+n;x=A[e];l[x[730]]=l[x[876]]-l[x[1314]];e=e+n;x=A[e];l[x[730]]=l[x[876]]/x[1314];e=e+n;x=A[e];l[x[730]]=l[x[876]]*x[1314];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];e=x[876];end;elseif
+                        D<=(25)then if D>(24)then local x=x[730]local n,e=i(l[x](l[x+1]))t=e+x-1 local e=0;for x=x,t do e=e+1;l[x]=n[e];end;else local x=x[730]l[x](l[x+1])end;elseif D>(26)then local e=x[730]l[e](C(l,e+1,x[876]))else local C;local D;D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];C=l[x[876]];l[D+1]=C;l[D]=C[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];end;elseif
+                        D
+                        <=(41)then if D<=(34)then if D<=(30)then if D<=(28)then l[x[730]]=f[x[876]];elseif D==(29)then l[x[730]]=l[x[876]][x[1314]];else if(l[x[730]]~=x[1314])then e=e+1;else e=x[876];end;end;elseif D<=(32)then if D==(31)then l[x[730]][x[876]]=l[x[1314]];else
+                            do return end;end;elseif D>(33)then t=x[730];else l[x[730]][l[x[876]]]=l[x[1314]];end;elseif D
+                            <=(37)then if D<=(35)then local D;local f;local c,d;local a;local D;D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];a=l[x[876]];l[D+1]=a;l[D]=a[x[1314]];e=e+n;x=A[e];D=x[730]c,d=i(l[D](l[D+1]))t=d+D-1
+                                f=0;for x=D,t do f=f+1;l[x]=c[f];end;e=e+n;x=A[e];D=x[730]c={l[D](C(l,D+1,t))};f=0;for x=D,x[1314]do f=f+1;l[x]=c[f];end e=e+n;x=A[e];e=x[876];elseif D==(36)then do return l[x[730]]end else t=x[730];end;elseif D<=(39)then if
+                                D>(38)then if(l[x[730]]==x[1314])then e=e+1;else e=x[876];end;else if not l[x[730]]then e=e+1;else e=x[876];end;end;elseif D>(40)then l[x[730]]=l[x[876]]-l[x[1314]];else local x=x[730]local n,e=i(l[x](l[x+1]))t=e+x-1 local e=0;for
+                                x=x,t do e=e+1;l[x]=n[e];end;end;elseif D
+                                <=(48)then if D<=(44)then if D<=(42)then local n=x[876];local e=l[n]for x=n+1,x[1314]do e=e..l[x];end;l[x[730]]=e;elseif D>(43)then local e=x[730];local n=l[x[876]];l[e+1]=n;l[e]=n[x[1314]];else l[x[730]]=l[x[876]]-x[1314];end;elseif D
+                                    <=(46)then if D>(45)then l[x[730]]={};else e=x[876];end;elseif D>(47)then local e=x[730]local A={l[e](C(l,e+1,t))};local n=0;for x=e,x[1314]do n=n+1;l[x]=A[n];end else l[x[730]]=f[x[876]];end;elseif D
+                                        <=(51)then if D<=(49)then l[x[730]]=(not
+                                            l[x[876]]);elseif D==(50)then local x=x[730]l[x]=l[x]()else l[x[730]]={};end;elseif D<=(53)then if D>(52)then local D;l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]]=l[x[876]][l[x[1314]]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];else
+                                            if(l[x[730]]==x[1314])then e=e+1;else e=x[876];end;end;elseif D>(54)then local e=x[730];l[e]=o[x[876]];else local D;D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=f[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=f[x[876]];e=e+n;x=A[e];D=x[730]l[D]=l[D]()e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]][x[876]]=l[x[1314]];end;elseif
+                                            D
+                                            <=(83)then if D<=(69)then if D<=(62)then if D<=(58)then if D<=(56)then l[x[730]]=f[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=l[x[876]]-l[x[1314]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];if(l[x[730]]<l[x[1314]])then
+                                                e=x[876];else e=e+1;end;elseif D==(57)then e=x[876];else l[x[730]]=l[x[876]]-x[1314];end;elseif D<=(60)then if D>(59)then if(x[730]
+                                                <l[x[1314]])then e=e+1;else e=x[876];end;else l[x[730]]=l[x[876]]/x[1314];end;elseif D==(61)then l[x[730]]=l[x[876]][x[1314]];else if(l[x[730]]~=l[x[1314]])then e=e+1;else e=x[876];end;end;elseif
+                                                    D<=(65)then if D<=(63)then f[x[876]]=l[x[730]];elseif D>(64)then if(x[730]
+                                                    <l[x[1314]])then e=x[876];else e=e+1;end;else local n=x[730];local A=l[n]local D=l[n+2];if(D>0)then if(A>l[n+1])then e=x[876];else l[n+3]=A;end elseif(A
+                                                        <l[n+1])then e=x[876];else l[n+3]=A;end end;elseif D<=(67)then if D>(66)then f[x[876]]=l[x[730]];else local n=x[730];local A=l[n]local D=l[n+2];if(D>0)then if(A>l[n+1])then e=x[876];else l[n+3]=A;end elseif(A
+                                                            <l[n+1])then e=x[876];else l[n+3]=A;end end;elseif D>(68)then local e=x[730]l[e]=l[e](C(l,e+1,x[876]))else if(l[x[730]]
+                                                                <l[x[1314]])then e=e+1;else e=x[876];end;end;elseif D<=(76)then if D<=(72)then if D<=(70)then if(l[x[730]]~=x[1314])then e=e+1;else
+                                                                    e=x[876];end;elseif D>(71)then local n=x[730];local D=x[1314];local A=n+2 local n={l[n](l[n+1],l[A])};for x=1,D do l[A+x]=n[x];end;local n=n[1]if n then l[A]=n e=x[876];else e=e+1;end;else l[x[730]]=#l[x[876]];end;elseif
+                                                                    D
+                                                                    <=(74)then if D>(73)then local n=x[730];local D=l[n+2];local A=l[n]+D;l[n]=A;if(D>0)then if(A
+                                                                        <=l[n+1])then e=x[876];l[n+3]=A;end elseif(A>=l[n+1])then e=x[876];l[n+3]=A;end else if(x[730]
+                                                                            <l[x[1314]])then e=x[876];else e=e+1;end;end;elseif D==(75)then local x=x[730]l[x]=l[x](C(l,x+1,t))else local e=x[730]l[e]=l[e](C(l,e+1,x[876]))end;elseif
+                                                                                D<=(79)then if D<=(77)then local t;local D;l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];t=l[x[876]];l[D+1]=t;l[D]=t[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];t=l[x[876]];l[D+1]=t;l[D]=t[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];elseif
+                                                                                D==(78)then l[x[730]]=x[1314]+l[x[876]];else local o;local D;D=x[730]l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]]=(x[876]~=0);e=e+n;x=A[e];D=x[730];o=l[x[876]];l[D+1]=o;l[D]=o[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];l[x[730]]=(x[876]~=0);end;elseif
+                                                                                D<=(81)then if D>(80)then l[x[730]]=l[x[876]][l[x[1314]]];else l[x[730]]=(x[876]~=0);end;elseif D==(82)then local x=x[730]l[x]=l[x](C(l,x+1,t))else l[x[730]]=#l[x[876]];end;elseif D
+                                                                                <=(97)then
+                                                                                    if D<=(90)then if D<=(86)then if D<=(84)then local t=h[x[876]];local C;local n={};C=M({},{__index=function(e,x)local x=n[x];return x[1][x[2]];end,__newindex=function(l,x,e)local
+                                                                                    x=n[x]x[1][x[2]]=e;end;});for D=1,x[1314]do e=e+1;local x=A[e];if x[146]==0 then n[D-1]={l,x[876]};else n[D-1]={f,x[876]};end;c[#c+1]=n;end;l[x[730]]=d(t,C,o);elseif D==(85)then
+                                                                                    l[x[730]]=l[x[876]]*x[1314];else if(x[730]<l[x[1314]])then e=e+1;else e=x[876];end;end;elseif D<=(88)then if D==(87)then local x=x[730]l[x](l[x+1])else local t;local D;D=x[730];t=l[x[876]];l[D+1]=t;l[D]=t[x[1314]];e=e+n;x=A[e];l[x[730]]=f[x[876]];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](l[D+1])e=e+n;x=A[e];l[x[730]]={};e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=f[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=f[x[876]];e=e+n;x=A[e];D=x[730]l[D]=l[D]()e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]][x[876]]=l[x[1314]];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];D=x[730];t=l[x[876]];l[D+1]=t;l[D]=t[x[1314]];e=e+n;x=A[e];D=x[730]l[D](l[D+1])e=e+n;x=A[e];e=x[876];end;elseif
+                                                                                    D>(89)then if(l[x[730]]
+                                                                                    <l[x[1314]])then e=x[876];else e=e+1;end;else local f;local c;local d,a;local D;D=x[730];d,a=i(l[D](C(l,D+1,x[876])));t=D+a-1;c=0;for x=D,t do c=c+1;l[x]=d[c];end;e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,t))e=e+n;x=A[e];D=x[730]l[D]=l[D]()e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];f=l[x[876]];l[D+1]=f;l[D]=f[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];f=l[x[876]];l[D+1]=f;l[D]=f[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];end;elseif
+                                                                                        D<=(93)then if D<=(91)then local x=x[730]l[x]=l[x]()elseif D==(92)then local t;local D;D=x[730];t=l[x[876]];l[D+1]=t;l[D]=t[x[1314]];e=e+n;x=A[e];l[x[730]]=f[x[876]];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](l[D+1])e=e+n;x=A[e];l[x[730]]={};e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=f[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]=f[x[876]];e=e+n;x=A[e];D=x[730]l[D]=l[D]()e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]][x[876]]=l[x[1314]];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];D=x[730];t=l[x[876]];l[D+1]=t;l[D]=t[x[1314]];e=e+n;x=A[e];D=x[730]l[D](l[D+1])e=e+n;x=A[e];e=x[876];else
+                                                                                        local o;local D;D=x[730];o=l[x[876]];l[D+1]=o;l[D]=o[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];D=x[730];o=l[x[876]];l[D+1]=o;l[D]=o[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]]=(x[876]~=0);e=e+n;x=A[e];D=x[730];o=l[x[876]];l[D+1]=o;l[D]=o[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];l[x[730]]=(x[876]~=0);end;elseif
+                                                                                        D<=(95)then if D==(94)then local n=x[730];local D=x[1314];local A=n+2 local n={l[n](l[n+1],l[A])};for x=1,D do l[A+x]=n[x];end;local n=n[1]if n then l[A]=n e=x[876];else
+                                                                                        e=e+1;end;else local e=x[730]l[e](C(l,e+1,x[876]))end;elseif D==(96)then if(l[x[730]]<l[x[1314]])then e=x[876];else e=e+1;end;else l[x[730]][l[x[876]]]=l[x[1314]];end;elseif
+                                                                                        D<=(104)then if D<=(100)then if D<=(98)then local t;local D;D=x[730];t=l[x[876]];l[D+1]=t;l[D]=t[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];t=l[x[876]];l[D+1]=t;l[D]=t[x[1314]];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];elseif
+                                                                                        D>(99)then local n=x[730];local D=l[n+2];local A=l[n]+D;l[n]=A;if(D>0)then if(A
+                                                                                        <=l[n+1])then e=x[876];l[n+3]=A;end elseif(A>=l[n+1])then e=x[876];l[n+3]=A;end else local e=x[730];l[e]=x[(876)];end;elseif D
+                                                                                            <=(102)then if D==(101)then local t;local C;local D;D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];l[x[730]]={};e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730];l[D]=x[(876)];e=e+n;x=A[e];D=x[730];C=l[D]t=l[D+2];if(t>0)then if(C>l[D+1])then e=x[876];else l[D+3]=C;end elseif(C
+                                                                                                <l[D+1])then e=x[876];else l[D+3]=C;end else if l[x[730]]then e=e+1;else e=x[876];end;end;elseif D>(103)then if(l[x[730]]
+                                                                                                    <l[x[1314]])then e=e+1;else e=x[876];end;else l[x[730]][x[876]]=l[x[1314]];end;elseif D<=(108)then if D<=(106)then if D>(105)then local D;local f;local c,d;local a;local D;D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]][x[1314]];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];l[D]=o[x[876]];e=e+n;x=A[e];D=x[730];a=l[x[876]];l[D+1]=a;l[D]=a[x[1314]];e=e+n;x=A[e];D=x[730]c,d=i(l[D](l[D+1]))t=d+D-1
+                                                                                                        f=0;for x=D,t do f=f+1;l[x]=c[f];end;e=e+n;x=A[e];D=x[730]c={l[D](C(l,D+1,t))};f=0;for x=D,x[1314]do f=f+1;l[x]=c[f];end e=e+n;x=A[e];e=x[876];else
+                                                                                                        do return l[x[730]]end end;elseif D>(107)then local x=x[730]l[x]=l[x](l[x+1])else l[x[730]]=l[x[876]]/x[1314];end;elseif D
+                                                                                                        <=(110)then if D==(109)then
+                                                                                                            local D;l[x[730]]=l[x[876]]%x[1314];e=e+n;x=A[e];l[x[730]]=x[1314]+l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];l[x[730]]=l[x[876]];e=e+n;x=A[e];D=x[730]l[D]=l[D](C(l,D+1,x[876]))e=e+n;x=A[e];l[x[730]]=l[x[876]][l[x[1314]]];else
+                                                                                                            local x=x[730]l[x]=l[x](l[x+1])end;elseif D==(111)then l[x[730]]=l[x[876]]%x[1314];else do return end;end;e=e+n;end;end;end;return d(h(),{},B())();
