@@ -1,5 +1,6 @@
---[[ 🌑 moonbrew:tm: obfuscation, fork of ironbrew; { "encryptStrings": false, "encryptImportantStrings": false, "controlFlow": true, "bytecodeCompress": true, "decryptTableLen": 500, "preserveLineInfo": false, "mutate": true, "superOperators": true,
-"maxMiniSuperOperators": 120, "maxMegaSuperOperators": 120, "maxMutations": 200, "enumString": false, "intCompress": false, "commitRevision": "f33914d", "fingerprint": "\u003CNO FINGERPRINT\u003E" } ]] local f,x,N,O,n,A,t,P,W,D,x,c=getfenv or function()return
+--[[ 
+    🌑 Doggo Hub Winning
+]] local f,x,N,O,n,A,t,P,W,D,x,c=getfenv or function()return
 _ENV end,math.huge,string.byte,table.concat,string.sub,setmetatable,string.char,select,math.ldexp,unpack or table.unpack,table.insert,tonumber;local o={};local E=1;for x=0,255 do o[x]=t(x)end;local function a(D)local F,e,l="","",{};local B=256;local x=E;local
 function T()local F=c(n(D,x,x),36);x=x+E;local e=c(n(D,x,x+F-E),36);x=F+x;return e;end;F=t(T());l[1]=F;while x
 <#D do local x=T();if o[x]then e=o[x]else e=F..n(F,E,E);end;o[B]=F..n(e,E,E);l[#l+E],F,B=e,e,B+E;end;return table.concat(l)end;local B=a(
