@@ -1,0 +1,338 @@
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/ChipsBoy/DoggoHub/master/uilibrary.lua", true))()
+
+--// MAIN LOCALS \\--
+
+local Services = {
+    Tweens = game:GetService("TweenService"),
+    Players = game:GetService("Players"),
+    VIM = game:GetService("VirtualInputManager"),
+    uis = game:GetService("UserInputService"),
+    RunService = game:GetService("RunService"),
+    Rep = game:GetService("ReplicatedStorage"),
+    CoreGui = game:GetService("CoreGui"),
+}
+
+local FOVValue = 90
+local WalkS
+local JumpP
+local ZoomDist
+local FovCircleRadius = 80
+
+local Tweens = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local VIM = game:GetService("VirtualInputManager")
+local Heartbeat = game:GetService("RunService").Heartbeat
+local uis = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Rep = game:GetService("ReplicatedStorage")
+
+local Chams = false
+local Aimbot = false
+local SmoothAimbot = false
+local TargetTorso = false
+local KillAll = false
+local TracersEnabled = false
+local ThirdPerson = false
+local BHop = false
+local AntiAim = false
+local FOVEnabled = false
+local FovCircleVisible = false
+local Smoothness = 1.5
+
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
+local mouse = LocalPlayer:GetMouse()
+local currentPlayer = nil
+
+--[[
+    TABLES
+]]
+
+--// FUNCTIONS \\--
+
+local getNearestToMouse = function()
+    local closest = nil
+    local distance = FovCircleRadius
+
+    for i,v in next, game:GetService('Players'):GetChildren() do
+        if v.Name ~= game:GetService("Players").LocalPlayer.Name and v.Character and v.Character:FindFirstChild('HumanoidRootPart') then
+            local vec, inView = Camera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+            if inView then
+                local mouseDist = (Vector2.new(mouse.X, mouse.Y)-Vector2.new(vec.X,vec.Y)).magnitude
+                if mouseDist < distance then
+                    closest = v
+                    distance = mouseDist
+                end
+            end
+        end
+    end
+
+    return closest
+end
+
+function DrawCircle()
+    circle = Drawing.new("Circle")
+    circle.Position = Vector2.new(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y / 2)
+    circle.Color = Color3.fromRGB(232, 173, 56)
+    circle.Thickness = 0
+    circle.NumSides = 20
+    circle.Radius = FovCircleRadius
+    circle.Visible = true
+    circle.Filled = false
+    return circle
+end
+
+function DrawFOVCircle()
+    Services.RunService.RenderStepped:Connect(function()
+        local FOVCircle = DrawCircle()
+        if FovCircleVisible == false then
+            FOVCircle.Visible = false
+        end
+        Services.RunService.RenderStepped:Wait(.5) 
+        FOVCircle:Remove()
+    end)
+end
+
+function DrawLine()
+    local Line = Drawing.new("Line")
+    Line.Thickness = 0.2
+    Line.Transparency = 1
+    Line.Visible = false
+    Line.Color = Color3.fromRGB(255, 50, 0)
+    Line.From = Vector2.new(workspace.CurrentCamera.ViewportSize.X / 2, workspace.CurrentCamera.ViewportSize.Y)
+    return Line
+end
+
+function DrawTracer(player)
+    Services.RunService.RenderStepped:Connect(function() 
+        local Tracer = DrawLine()
+        if TracersEnabled then
+        if player.Team ~= LocalPlayer.Team and player and player.Character and player.Character:FindFirstChild("Head") then
+            local Position, OnScreen = workspace.CurrentCamera:WorldToViewportPoint(player.Character.Head.Position) 
+            Tracer.To = Vector2.new(Position.X, Position.Y) 
+            Tracer.Visible = OnScreen 
+        end
+        Services.RunService.RenderStepped:Wait(.5) 
+        Tracer:Remove()
+        else
+        Tracer:Remove()
+        end
+    end)
+end
+
+function CreateChams(player)
+    RunService.RenderStepped:Connect(function()
+        if Chams then
+            if player.Team ~= LocalPlayer.Team and player.Character and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("Head") then
+                if player.Character.Humanoid and player.Character.Humanoid.Health ~= 0 then
+                    for k,x in next, player.Character:GetChildren() do
+                        if x:IsA("BasePart") and x.Name ~= "HumanoidRootPart" and x.Name ~= "Head" then
+                            if not x:FindFirstChild("Cham") then
+                                local Cham = Instance.new("BoxHandleAdornment", x)
+                                Cham.Name = "Cham"
+                                Cham.AlwaysOnTop = true
+                                Cham.ZIndex = 6
+                                Cham.Color3 = Color3.fromRGB(255, 50, 0)
+                                Cham.Size = x.Size
+                                Cham.Transparency = 0.7
+                                Cham.Adornee = x
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end)
+end
+
+function RemoveChams(player)
+    for k,x in next, player:GetChildren() do
+        if x:IsA("BasePart") and x.Name ~= "HumanoidRootPart" then
+            if x:FindFirstChild("Cham") then
+                x.Cham:Destroy()
+            end
+        end
+    end
+end
+
+--// SCRIPT \\--
+
+local DoggoHub = library:AddTab("Doggo Hub")
+
+local Combat = DoggoHub:AddCategory("Combat")
+
+DrawFOVCircle()
+
+Combat:AddToggle("Kill All", false, function()
+    KillAll = not KillAll
+end)
+
+Services.RunService.RenderStepped:Connect(function()
+    if KillAll then
+        for k,x in next, Players:GetChildren() do
+            if x.Team ~= game.Players.LocalPlayer.Team then
+                if x.Character and x.Character.Head then
+                    if not workspace[LocalPlayer.Name].Gun:FindFirstChild("Beep") then
+                        local Args = {
+                            [1] = workspace[x.Name].Head,
+                            [2] = workspace[x.Name].Head.Position,
+                            [3] = workspace[LocalPlayer.Name].EquippedTool.Value,
+                            [4] = 0,
+                            [5] = workspace[LocalPlayer.Name].Gun,
+                            [8] = 80,
+                            [9] = false,
+                            [10] = false,
+                            [11] = Vector3.new(),
+                            [12] = 0,
+                            [13] = Vector3.new()
+                        }
+                        Services.Rep.Events.HitPart:FireServer(unpack(Args))
+                    end
+                end
+            end
+        end
+    end
+end)
+
+Combat:AddToggle("FOV Visible", false, function()
+    FovCircleVisible = not FovCircleVisible
+end)
+
+Combat:AddSlider("FOV Circle", 40, 1000, function(FovCircleValue)
+    FovCircleRadius = (FovCircleValue)
+end)
+
+Combat:AddToggle("Aimbot", false, function()
+    Aimbot = not Aimbot
+end)
+
+Combat:AddToggle("Target Torso", false, function()
+    TargetTorso = not TargetTorso
+end)
+
+Combat:AddSlider("Smoothness", 1, 5, function(smooth)
+    Smoothness = (smooth)
+end)
+
+RunService.RenderStepped:Connect(function()
+    if Aimbot and uis:IsMouseButtonPressed(Enum.UserInputType.MouseButton2) then
+        local closestplayer = getNearestToMouse()
+        if closestplayer then
+            if closestplayer.Team ~= LocalPlayer.Team then
+                local torsovector = Camera:WorldToScreenPoint(workspace[closestplayer.Name].UpperTorso.Position) - Camera:WorldToScreenPoint(mouse.Hit.p)
+                local headvector = Camera:WorldToScreenPoint(workspace[closestplayer.Name].Head.Position) - Camera:WorldToScreenPoint(mouse.Hit.p)
+                if TargetTorso then
+                    mousemoverel(torsovector.X/Smoothness, torsovector.Y/Smoothness)
+                elseif TargetTorso == false then
+                    mousemoverel(headvector.X/Smoothness, headvector.Y/Smoothness)
+                end
+            end
+        end
+    end
+end)
+
+local Visuals = DoggoHub:AddCategory("Visuals")
+
+Visuals:AddToggle("Chams ESP", false, function()
+    Chams = not Chams
+    if Chams then
+        for k,x in next, Players:GetChildren() do
+            CreateChams(x)
+        end
+    end
+    if Chams == false then
+        for k,x in next, Players:GetChildren() do
+            for i,v in next, workspace:GetChildren() do
+                if v.Name == x.Name then
+                    RemoveChams(v)
+                end
+            end
+        end
+    end
+end)
+
+Players.PlayerAdded:Connect(function(newPlayer)
+    if Chams then
+        CreateChams(newPlayer)
+    end
+end)
+
+Visuals:AddToggle("Tracers", false, function()
+    TracersEnabled = not TracersEnabled
+    for k,x in next, Players:GetChildren() do
+        DrawTracer(x)
+    end
+end)
+
+Players.PlayerAdded:Connect(function(player)
+    if TracersEnabled then
+        DrawTracer(player)
+    end
+end)
+
+local PlayerCheats = DoggoHub:AddCategory("Player")
+
+PlayerCheats:AddToggle("Anti Aim", false, function()
+    AntiAim = not AntiAim
+    while AntiAim and Heartbeat:wait() do
+        game.ReplicatedStorage.Events.ControlTurn:FireServer(-math.huge, false)
+        game.ReplicatedStorage.Events.ControlTurn:FireServer(math.huge, false)
+    end
+end)
+
+PlayerCheats:AddToggle("Enable FOV", false, function()
+    FOVEnabled = not FOVEnabled
+    while FOVEnabled and Heartbeat:wait() do
+        Camera.FieldOfView = FOVValue
+    end
+    if FOVEnabled == false then
+        Camera.FieldOfView = 80
+    end
+end)
+
+PlayerCheats:AddSlider("FOV", 70, 120, function(FOV)
+    FOVValue = (FOV)
+end)
+
+local GunMods = DoggoHub:AddCategory("Gun Mods")
+
+GunMods:AddButton("Inf Ammo", function()
+    for k,x in next, Services.Rep.Weapons:GetChildren() do
+        if x.ClassName == "Folder" and x.Name ~= "C4" then
+            x.Ammo.Value = 9e9
+            x.StoredAmmo.Value = 9e9
+        end
+    end
+end)
+
+GunMods:AddButton("Rapid Fire", function()
+    for k,x in next, Services.Rep.Weapons:GetChildren() do
+        if x.ClassName == "Folder" and x.Name ~= "C4" then
+            x.FireRate.Value = 0.05
+        end
+    end
+end)
+
+GunMods:AddButton("Forced Auto", function()
+    for k,x in next, Services.Rep.Weapons:GetChildren() do
+        if x.ClassName == "Folder" and x.Name ~= "C4" then
+            x.Auto.Value = true
+        end
+    end
+end)
+
+GunMods:AddButton("Insta Equip", function()
+    for k,x in next, Services.Rep.Weapons:GetChildren() do
+        if x.ClassName == "Folder" and x.Name ~= "C4" then
+            x.EquipTime.Value = 0
+        end
+    end
+end)
+
+GunMods:AddButton("Reload Time", function()
+    for k,x in next, Services.Rep.Weapons:GetChildren() do
+        if x.ClassName == "Folder" and x.Name ~= "C4" then
+            x.ReloadTime.Value = 0.1
+        end
+    end
+end)
